@@ -26,6 +26,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	UNiagaraSystem* FXCursor;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
+	UNiagaraSystem* FXCursorRed;
+
 protected:
 	/** True if the controlled character should navigate to the mouse cursor. */
 	uint32 bMoveToMouseCursor : 1;
@@ -35,11 +38,17 @@ protected:
 	virtual void SetupInputComponent() override;
 	// End PlayerController interface
 
+	// Specific Tick Functions
+	void TickMovement(float DeltaTime);
+
 	/** Input handlers for SetDestination action. */
 	void OnSetDestinationPressed();
 	void OnSetDestinationReleased();
 	void OnTouchPressed(const ETouchIndex::Type FingerIndex, const FVector Location);
 	void OnTouchReleased(const ETouchIndex::Type FingerIndex, const FVector Location);
+
+	/** Input handlers for Interact action. */
+	void OnInteractPressed();
 
 private:
 	bool bInputPressed; // Input is bring pressed

@@ -8,6 +8,8 @@
 #include "StealthGameCharacter.h"
 #include "Engine/World.h"
 
+#include "Interactable.h"
+
 AStealthGamePlayerController::AStealthGamePlayerController()
 {
 	bShowMouseCursor = true;
@@ -18,14 +20,35 @@ void AStealthGamePlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
 
-	if(bInputPressed)
+	TickMovement(DeltaTime);
+}
+
+void AStealthGamePlayerController::SetupInputComponent()
+{
+	// set up gameplay key bindings
+	Super::SetupInputComponent();
+
+	InputComponent->BindAction("SetDestination", IE_Pressed, this, &AStealthGamePlayerController::OnSetDestinationPressed);
+	InputComponent->BindAction("SetDestination", IE_Released, this, &AStealthGamePlayerController::OnSetDestinationReleased);
+
+	InputComponent->BindAction("Interact", IE_Pressed, this, &AStealthGamePlayerController::OnInteractPressed);
+
+	// support touch devices 
+	InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AStealthGamePlayerController::OnTouchPressed);
+	InputComponent->BindTouch(EInputEvent::IE_Released, this, &AStealthGamePlayerController::OnTouchReleased);
+
+}
+
+void AStealthGamePlayerController::TickMovement(float DeltaTime)
+{
+	if (bInputPressed)
 	{
 		FollowTime += DeltaTime;
 
 		// Look for the touch location
 		FVector HitLocation = FVector::ZeroVector;
 		FHitResult Hit;
-		if(bIsTouch)
+		if (bIsTouch)
 		{
 			GetHitResultUnderFinger(ETouchIndex::Touch1, ECC_Visibility, true, Hit);
 		}
@@ -37,7 +60,7 @@ void AStealthGamePlayerController::PlayerTick(float DeltaTime)
 
 		// Direct the Pawn towards that location
 		APawn* const MyPawn = GetPawn();
-		if(MyPawn)
+		if (MyPawn)
 		{
 			FVector WorldDirection = (HitLocation - MyPawn->GetActorLocation()).GetSafeNormal();
 			MyPawn->AddMovementInput(WorldDirection, 1.f, false);
@@ -47,20 +70,6 @@ void AStealthGamePlayerController::PlayerTick(float DeltaTime)
 	{
 		FollowTime = 0.f;
 	}
-}
-
-void AStealthGamePlayerController::SetupInputComponent()
-{
-	// set up gameplay key bindings
-	Super::SetupInputComponent();
-
-	InputComponent->BindAction("SetDestination", IE_Pressed, this, &AStealthGamePlayerController::OnSetDestinationPressed);
-	InputComponent->BindAction("SetDestination", IE_Released, this, &AStealthGamePlayerController::OnSetDestinationReleased);
-
-	// support touch devices 
-	InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AStealthGamePlayerController::OnTouchPressed);
-	InputComponent->BindTouch(EInputEvent::IE_Released, this, &AStealthGamePlayerController::OnTouchReleased);
-
 }
 
 void AStealthGamePlayerController::OnSetDestinationPressed()
@@ -101,4 +110,25 @@ void AStealthGamePlayerController::OnTouchReleased(const ETouchIndex::Type Finge
 {
 	bIsTouch = false;
 	OnSetDestinationReleased();
+}
+
+void AStealthGamePlayerController::OnInteractPressed()
+{
+	FHitResult Hit;
+	bool HitSuccess = GetHitResultUnderCursor(ECC_GameTraceChannel1, true, Hit);
+
+	if (HitSuccess)
+	{
+	
+		AInteractable* interactable = Cast<AInteractable>(Hit.GetActor());
+
+		if (interactable)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Interact"));
+
+			interactable->Interact();
+		}
+
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, FXCursorRed, Hit.Location, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
+	}
 }
