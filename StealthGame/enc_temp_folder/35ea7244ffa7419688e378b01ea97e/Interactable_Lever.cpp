@@ -14,8 +14,6 @@ void AInteractable_Lever::InteractChild()
 
 	if (Interface)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("InterfaceCalled"));
-
 		Interface->Execute_LeverUpdate(LinkedActor, LeverState);
 	}
 }
