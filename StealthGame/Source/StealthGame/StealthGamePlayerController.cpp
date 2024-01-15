@@ -121,14 +121,10 @@ void AStealthGamePlayerController::OnInteractPressed()
 	{
 	
 		AInteractable* interactable = Cast<AInteractable>(Hit.GetActor());
-
 		if (interactable)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Interact"));
-
 			interactable->Interact();
+			UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, FXCursorRed, Hit.Location, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
 		}
-
-		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, FXCursorRed, Hit.Location, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
 	}
 }
