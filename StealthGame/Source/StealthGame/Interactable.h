@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+
+
+
 #include "Interactable.generated.h"
 
 UCLASS()
@@ -23,9 +26,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void Interact();
+	void Interact(ACharacter* Character);
 
-	virtual void InteractChild() {}
+	virtual void InteractChild(ACharacter* Character) {}
 
 
 

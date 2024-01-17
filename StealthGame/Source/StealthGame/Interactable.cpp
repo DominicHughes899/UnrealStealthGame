@@ -25,9 +25,9 @@ void AInteractable::Tick(float DeltaTime)
 
 }
 
-void AInteractable::Interact()
+void AInteractable::Interact(ACharacter* Character)
 {
-	InteractChild();
+	InteractChild(Character);
 
 }
 

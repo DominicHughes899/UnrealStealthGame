@@ -19,7 +19,7 @@ class STEALTHGAME_API AInteractable_Lever : public AInteractable
 	
 public: 
 
-	void InteractChild() override;
+	void InteractChild(ACharacter* Character) override;
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void LeverInteraction();

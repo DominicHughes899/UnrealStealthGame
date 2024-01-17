@@ -4,7 +4,7 @@
 #include "Interactable_Lever.h"
 
 
-void AInteractable_Lever::InteractChild()
+void AInteractable_Lever::InteractChild(ACharacter* Character)
 {
 	LeverState = !LeverState;
 
