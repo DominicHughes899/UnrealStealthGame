@@ -27,8 +27,6 @@ void ADoor::Tick(float DeltaTime)
 
 void ADoor::LeverUpdate_Implementation(bool NewState)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Door Activated"));
-
 	IsOpen = NewState;
 
 	UpdatePosition();
