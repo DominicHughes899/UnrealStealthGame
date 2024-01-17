@@ -30,5 +30,19 @@ private:
 	/** Camera boom positioning the camera above the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
+
+	/** Boom for items being held */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = HeldItem, meta = (AllowPrivateAccess = "true"))
+	class USpringArmComponent* HeldItemBoom;
+
+public:
+	bool AttachHeldItem(AActor* ItemToAttach, FName Tag);
+
+	void ClearHeldItem();
+	
+	AActor* HeldItem;
+
+
+
 };
 
