@@ -119,12 +119,14 @@ void AStealthGamePlayerController::OnInteractPressed()
 
 	if (HitSuccess)
 	{
-	
-		AInteractable* interactable = Cast<AInteractable>(Hit.GetActor());
-		if (interactable)
+		if ((Hit.Location - GetPawn()->GetActorLocation()).Length() <= 400)
 		{
-			interactable->Interact();
-			UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, FXCursorRed, Hit.Location, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
+			AInteractable* interactable = Cast<AInteractable>(Hit.GetActor());
+			if (interactable)
+			{
+				interactable->Interact(GetCharacter());
+				UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, FXCursorRed, Hit.Location, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
+			}
 		}
 	}
 }
