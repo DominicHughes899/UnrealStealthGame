@@ -16,6 +16,7 @@ void AInteractable::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	OnBeginPlay();
 }
 
 // Called every frame
@@ -23,11 +24,23 @@ void AInteractable::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	OnTick(DeltaTime);
 }
 
 void AInteractable::Interact(ACharacter* Character)
 {
-	InteractChild(Character);
+	if (!Locked)
+	{
+		InteractChild(Character);
+	}
+	else
+	{
+		OnLocked();
+	}
+}
 
+void AInteractable::Unlock_Implementation()
+{
+	Locked = false;
 }
 

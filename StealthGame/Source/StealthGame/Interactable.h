@@ -5,12 +5,12 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 
-
+#include "LockInterface.h"
 
 #include "Interactable.generated.h"
 
 UCLASS()
-class STEALTHGAME_API AInteractable : public AActor
+class STEALTHGAME_API AInteractable : public AActor, public ILockInterface
 {
 	GENERATED_BODY()
 	
@@ -30,6 +30,19 @@ public:
 
 	virtual void InteractChild(ACharacter* Character) {}
 
+	
+	virtual void OnBeginPlay() {}
+	virtual void OnTick(float DeltaTime) {}
 
+
+	// ==== Lock Implementation ====
+
+	void Unlock_Implementation() override;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnLocked();
+
+	UPROPERTY(EditAnywhere, Category = "Interactable")
+	bool Locked = false;
 
 };
