@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Interactable.h"
+
+#include "LockInterface.h"
+
 #include "Interactable_KeyCardReader.generated.h"
 
 /**
@@ -17,6 +20,8 @@ class STEALTHGAME_API AInteractable_KeyCardReader : public AInteractable
 public:
 	void InteractChild(ACharacter* Character) override;
 
+	void OnBeginPlay() override;
+
 	UPROPERTY(EditAnywhere)
 	FName AcceptedCard;
 
@@ -27,4 +32,10 @@ public:
 	void OnAccessDenied();
 
 	bool Activated = false;
+
+	// ==== Linked Actor ====
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	AActor* LinkedActor;
+
+	ILockInterface* LinkedInteractee;
 };
