@@ -10,12 +10,18 @@ void AInteractable_Lever::InteractChild(ACharacter* Character)
 
 	LeverInteraction();
 
-	ILeverInterface* Interface = Cast<ILeverInterface>(LinkedActor);
-
-	if (Interface)
+	if (LinkedInteractee)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("InterfaceCalled"));
+		LinkedInteractee->Execute_LeverStateChange(LinkedActor, LeverState);
+	}
+}
 
-		Interface->Execute_LeverUpdate(LinkedActor, LeverState);
+void AInteractable_Lever::OnBeginPlay()
+{
+	LinkedInteractee = Cast<IInteractInterface>(LinkedActor);
+
+	if (LinkedInteractee == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("LINKED ACTOR CAST FAILED"));
 	}
 }

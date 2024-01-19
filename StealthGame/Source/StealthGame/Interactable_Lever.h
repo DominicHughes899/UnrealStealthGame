@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Interactable.h"
 
-#include "LeverInterface.h"
+#include "InteractInterface.h"
 
 #include "Interactable_Lever.generated.h"
 
@@ -21,6 +21,8 @@ public:
 
 	void InteractChild(ACharacter* Character) override;
 
+	void OnBeginPlay() override;
+
 	UFUNCTION(BlueprintImplementableEvent)
 	void LeverInteraction();
 
@@ -30,4 +32,5 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	AActor* LinkedActor;
 	
+	IInteractInterface* LinkedInteractee;
 };
