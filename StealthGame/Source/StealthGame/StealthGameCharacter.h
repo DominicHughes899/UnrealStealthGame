@@ -39,7 +39,7 @@ public:
 	bool AttachHeldItem(AActor* ItemToAttach, FName Tag);
 
 	void ClearHeldItem();
-	
+
 	AActor* HeldItem;
 
 

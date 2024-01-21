@@ -91,3 +91,4 @@ void AStealthGameCharacter::ClearHeldItem()
 		HeldItem = nullptr;
 	}
 }
+
