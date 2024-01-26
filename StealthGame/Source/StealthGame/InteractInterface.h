@@ -29,4 +29,7 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void ButtonStateChange(bool NewState);
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void TimerStateChange(bool NewState);
+
 };

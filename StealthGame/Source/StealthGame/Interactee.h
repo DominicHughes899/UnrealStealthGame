@@ -35,6 +35,8 @@ public:
 
 	void ButtonStateChange_Implementation(bool NewState) override;
 
+	void TimerStateChange_Implementation(bool NewState) override;
+
 
 	/**/
 

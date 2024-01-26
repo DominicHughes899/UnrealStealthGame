@@ -39,5 +39,12 @@ void AInteractee::ButtonStateChange_Implementation(bool NewState)
 	OnStateChange();
 }
 
+void AInteractee::TimerStateChange_Implementation(bool NewState)
+{
+	Activated = NewState;
+
+	OnStateChange();
+}
+
 
 
