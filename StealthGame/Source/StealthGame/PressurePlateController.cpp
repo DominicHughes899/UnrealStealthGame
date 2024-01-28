@@ -48,6 +48,5 @@ void APressurePlateController::CheckCodeInput(int Value)
 			OnCodeIncorrect();
 		}
 	}
-
 }
 
