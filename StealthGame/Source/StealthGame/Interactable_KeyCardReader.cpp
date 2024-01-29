@@ -18,8 +18,6 @@ void AInteractable_KeyCardReader::InteractChild(ACharacter* Character)
 			if (LinkedLockedInteractee)
 			{
 				LinkedLockedInteractee->Execute_Unlock(LinkedLockedActor);
-
-				
 			}
 			else
 			{
