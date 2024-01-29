@@ -18,10 +18,5 @@ void AInteractable_Lever::InteractChild(ACharacter* Character)
 
 void AInteractable_Lever::OnBeginPlay()
 {
-	LinkedInteractee = Cast<IInteractInterface>(LinkedActor);
 
-	if (LinkedInteractee == nullptr)
-	{
-		UE_LOG(LogTemp, Error, TEXT("LINKED ACTOR CAST FAILED"));
-	}
 }

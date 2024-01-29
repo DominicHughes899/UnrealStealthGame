@@ -16,6 +16,12 @@ void AInteractable::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	LinkedInteractee = Cast<IInteractInterface>(LinkedActor);
+	if (LinkedInteractee == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("LINKED ACTOR CAST FAILED"));
+	}
+
 	OnBeginPlay();
 }
 

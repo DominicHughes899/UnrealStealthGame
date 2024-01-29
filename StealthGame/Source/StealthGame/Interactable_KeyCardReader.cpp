@@ -15,9 +15,15 @@ void AInteractable_KeyCardReader::InteractChild(ACharacter* Character)
 
 			Activated = true;
 
-			if (LinkedInteractee)
+			if (LinkedLockedInteractee)
 			{
-				LinkedInteractee->Execute_Unlock(LinkedActor);
+				LinkedLockedInteractee->Execute_Unlock(LinkedLockedActor);
+
+				
+			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("UNLOCK FAILED"));
 			}
 
 			AStealthGameCharacter* AsStealthCharacter = Cast<AStealthGameCharacter>(Character);
@@ -35,10 +41,10 @@ void AInteractable_KeyCardReader::InteractChild(ACharacter* Character)
 void AInteractable_KeyCardReader::OnBeginPlay()
 {
 
-	LinkedInteractee = Cast<ILockInterface>(LinkedActor);
-	if (LinkedInteractee == nullptr)
+	LinkedLockedInteractee = Cast<ILockInterface>(LinkedLockedActor);
+	if (LinkedLockedInteractee == nullptr)
 	{
-		UE_LOG(LogTemp, Error, TEXT("LINKED ACTOR CAST FAILED"));
+		UE_LOG(LogTemp, Error, TEXT("KEYCARD LOCKED ACTOR CAST FAILED"));
 	}
 
 }

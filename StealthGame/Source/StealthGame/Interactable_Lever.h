@@ -29,8 +29,4 @@ public:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	bool LeverState = false;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	AActor* LinkedActor;
-	
-	IInteractInterface* LinkedInteractee;
 };

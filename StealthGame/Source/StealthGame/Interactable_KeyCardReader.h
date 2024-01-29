@@ -35,7 +35,7 @@ public:
 
 	// ==== Linked Actor ====
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	AActor* LinkedActor;
+	AActor* LinkedLockedActor;
 
-	ILockInterface* LinkedInteractee;
+	ILockInterface* LinkedLockedInteractee;
 };

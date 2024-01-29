@@ -34,9 +34,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Timer")
 	bool IsLightOn;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Timer")
-	AActor* LinkedActor;
 
-	IInteractInterface* LinkedInteractee;
 
 };

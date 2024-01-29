@@ -46,10 +46,4 @@ public:
 	// ==============================
 
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	AActor* LinkedActor;
-
-	IInteractInterface* LinkedInteractee;
-
-
 };

@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 
 #include "LockInterface.h"
+#include "InteractInterface.h"
 
 #include "Interactable.generated.h"
 
@@ -44,5 +45,13 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Interactable")
 	bool Locked = false;
+
+	// ==== Interactable ====
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	AActor* LinkedActor;
+
+	IInteractInterface* LinkedInteractee;
+
 
 };
