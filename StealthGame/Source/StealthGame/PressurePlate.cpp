@@ -43,7 +43,7 @@ void APressurePlate::PressurePlateTriggered(class AActor* OverlappedActor, class
 	IsPlatePressed = true;
 
 	LinkedInterface->Execute_CodeInput(LinkedController, CodeValue);
-
+	
 	OnPressurePlateTriggered();
 }
 
