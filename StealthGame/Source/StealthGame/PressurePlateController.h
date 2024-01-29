@@ -3,14 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "Interactable.h"
 
+#include "InteractInterface.h"
 #include "PressurePlateInterface.h"
 
 #include "PressurePlateController.generated.h"
 
 UCLASS()
-class STEALTHGAME_API APressurePlateController : public AActor, public IPressurePlateInterface
+class STEALTHGAME_API APressurePlateController : public AInteractable, public IPressurePlateInterface
 {
 	GENERATED_BODY()
 	
@@ -45,6 +46,8 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnCodeCorrect();
+
+	
 
 
 

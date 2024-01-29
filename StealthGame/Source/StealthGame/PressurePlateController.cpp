@@ -37,9 +37,12 @@ void APressurePlateController::CheckCodeInput(int Value)
 			if (Counter == DesiredSequence.Num())
 			{
 				Counter = 0;
+
 				OnCodeCorrect();
 
 				HasActivated = true;
+				LinkedInteractee->Execute_ButtonStateChange(LinkedActor, HasActivated);
+
 			}
 		}
 		else
