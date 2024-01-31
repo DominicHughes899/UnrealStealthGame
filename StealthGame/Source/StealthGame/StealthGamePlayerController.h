@@ -50,6 +50,11 @@ protected:
 	/** Input handlers for Interact action. */
 	void OnInteractPressed();
 
+	/** Input handlers for WASD controls. */
+	void MoveForward(float Value);
+	void MoveRight(float Value);
+
+
 private:
 	bool bInputPressed; // Input is bring pressed
 	bool bIsTouch; // Is it a touch device

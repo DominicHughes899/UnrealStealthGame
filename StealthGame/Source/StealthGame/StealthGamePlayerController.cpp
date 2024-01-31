@@ -28,10 +28,15 @@ void AStealthGamePlayerController::SetupInputComponent()
 	// set up gameplay key bindings
 	Super::SetupInputComponent();
 
+	// Point and click controls
 	InputComponent->BindAction("SetDestination", IE_Pressed, this, &AStealthGamePlayerController::OnSetDestinationPressed);
 	InputComponent->BindAction("SetDestination", IE_Released, this, &AStealthGamePlayerController::OnSetDestinationReleased);
 
 	InputComponent->BindAction("Interact", IE_Pressed, this, &AStealthGamePlayerController::OnInteractPressed);
+
+	// WASD controls
+	InputComponent->BindAxis("MoveForward", this, &AStealthGamePlayerController::MoveForward);
+	InputComponent->BindAxis("MoveRight", this, &AStealthGamePlayerController::MoveRight);
 
 	// support touch devices 
 	InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AStealthGamePlayerController::OnTouchPressed);
@@ -129,4 +134,20 @@ void AStealthGamePlayerController::OnInteractPressed()
 			}
 		}
 	}
+}
+
+void AStealthGamePlayerController::MoveForward(float Value)
+{
+	APawn* const MyPawn = GetPawn();
+
+	MyPawn->AddMovementInput(FVector(Value, 0.f, 0.f));
+
+}
+
+void AStealthGamePlayerController::MoveRight(float Value)
+{
+	APawn* const MyPawn = GetPawn();
+
+	MyPawn->AddMovementInput(FVector(0.f, Value, 0.f));
+
 }
