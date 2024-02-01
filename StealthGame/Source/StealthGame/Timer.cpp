@@ -19,7 +19,6 @@ void ATimer::OnTick(float DeltaTime)
 			IsLightOn = !IsLightOn;
 			LinkedInteractee->Execute_TimerStateChange(LinkedActor, IsLightOn);
 
-			UE_LOG(LogTemp, Warning, TEXT("Timer triggered"));
 			Timer = 0.f;
 		}
 	}
