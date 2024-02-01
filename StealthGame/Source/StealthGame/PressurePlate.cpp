@@ -42,7 +42,27 @@ void APressurePlate::PressurePlateTriggered(class AActor* OverlappedActor, class
 
 	IsPlatePressed = true;
 
-	LinkedInterface->Execute_CodeInput(LinkedController, CodeValue);
+	if (LinkedInterface)
+	{
+		// Colour code input
+		if (IsColourPlate)
+		{
+			CodeValue++;
+			if (CodeValue == 3)
+			{
+				CodeValue = 0;
+			}
+
+			LinkedInterface->Execute_ColourCodeInput(LinkedController, Location, CodeValue);
+		}
+
+		// Normal Code input
+		else
+		{
+			LinkedInterface->Execute_CodeInput(LinkedController, CodeValue);
+		}
+		
+	}
 	
 	OnPressurePlateTriggered();
 }

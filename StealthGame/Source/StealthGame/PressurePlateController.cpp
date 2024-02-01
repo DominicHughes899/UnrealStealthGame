@@ -41,7 +41,11 @@ void APressurePlateController::CheckCodeInput(int Value)
 				OnCodeCorrect();
 
 				HasActivated = true;
-				LinkedInteractee->Execute_ButtonStateChange(LinkedActor, HasActivated);
+				if (LinkedInteractee)
+				{
+					LinkedInteractee->Execute_ButtonStateChange(LinkedActor, HasActivated);
+				}
+				
 
 			}
 		}

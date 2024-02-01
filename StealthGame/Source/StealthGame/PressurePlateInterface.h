@@ -26,4 +26,6 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void CodeInput(int Value);
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void ColourCodeInput(int Location, int Value);
 };

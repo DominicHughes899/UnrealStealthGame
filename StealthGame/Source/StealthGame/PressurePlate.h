@@ -36,21 +36,27 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void DisableTick() { SetActorTickEnabled(false); }
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int CodeValue;
 
 	UPROPERTY(BlueprintReadOnly)
 	bool IsPlatePressed = false;
 
+	UPROPERTY(EditAnywhere, Category="ColourPlate", meta = (ToolTip = "Only matters if this is a colour pressure plate"))
+	int Location;
+
 	// Linked Controller
 
 	UPROPERTY(EditAnywhere)
-	APressurePlateController* LinkedController;
+	AActor* LinkedController;
 
 	IPressurePlateInterface* LinkedInterface;
 
 	// Blueprint functions
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnPressurePlateTriggered();
+
+	UPROPERTY(BlueprintReadWrite)
+	bool IsColourPlate;
 
 };
