@@ -17,6 +17,7 @@ void AInteractSequencer::BeginPlay()
 	Super::BeginPlay();
 	
 	ArraySize = InteracteesArray.Num();
+	PauseArraySize = PausePoints.Num();
 
 	for (AInteractee* Interactee : InteracteesArray)
 	{
@@ -48,25 +49,59 @@ void AInteractSequencer::Tick(float DeltaTime)
 
 		if (Counter == 0)
 		{
-			InterfaceArray[Counter]->Execute_ButtonStateChange(InteracteesArray[Counter], false);
+			InterfaceArray[ArraySize - 1]->Execute_ButtonStateChange(InteracteesArray[ArraySize - 1], true);
 
-			Counter++;
+			if (!CheckPause())
+			{
+				InterfaceArray[Counter]->Execute_ButtonStateChange(InteracteesArray[Counter], false);
+
+				Counter++;
+			}
+			
 		}
 		else if (Counter > 0 && Counter != ArraySize)
 		{
 			InterfaceArray[Counter - 1]->Execute_ButtonStateChange(InteracteesArray[Counter - 1], true);
 
-			InterfaceArray[Counter]->Execute_ButtonStateChange(InteracteesArray[Counter], false);
+			if (!CheckPause())
+			{
+				InterfaceArray[Counter]->Execute_ButtonStateChange(InteracteesArray[Counter], false);
 
-			Counter++;
+				Counter++;
+
+				if (Counter == ArraySize)
+				{
+					Counter = 0;
+				}
+			}
+
 		}
+		/*
 		else if (Counter == ArraySize)
 		{
 			InterfaceArray[Counter - 1]->Execute_ButtonStateChange(InteracteesArray[Counter - 1], true);
 
 			Counter = 0;
 		}
+		*/
 
 	}
+}
+
+bool AInteractSequencer::CheckPause()
+{
+
+	if (PauseCounter < PauseArraySize && PausePoints[PauseCounter] == Counter)
+	{
+		PauseCounter++;
+
+		return true;
+	}
+
+	if (PauseCounter == PauseArraySize)
+	{	
+		PauseCounter = 0;
+	}
+	return false;
 }
 

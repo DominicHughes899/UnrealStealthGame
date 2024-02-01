@@ -44,4 +44,15 @@ public:
 	float SequenceTime;
 
 	float Timer = 0;
+
+
+	// ==== Pause ====
+
+	bool CheckPause();
+
+	UPROPERTY(EditAnywhere)
+	TArray<int> PausePoints;
+
+	int PauseCounter = 0;
+	int PauseArraySize;
 };
