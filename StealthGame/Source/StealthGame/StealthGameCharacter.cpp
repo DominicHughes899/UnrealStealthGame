@@ -92,3 +92,14 @@ void AStealthGameCharacter::ClearHeldItem()
 	}
 }
 
+void AStealthGameCharacter::MoveForward_Implementation(float Value)
+{
+	AddMovementInput(FVector(Value, 0.f, 0.f));
+
+}
+
+void AStealthGameCharacter::MoveRight_Implementation(float Value)
+{
+	AddMovementInput(FVector(0.f, Value, 0.f));
+}
+

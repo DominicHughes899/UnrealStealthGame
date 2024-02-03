@@ -9,11 +9,17 @@
 #include "Engine/World.h"
 
 #include "Interactable.h"
+#include "Telescope.h"
 
 AStealthGamePlayerController::AStealthGamePlayerController()
 {
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
+}
+
+void AStealthGamePlayerController::BeginPlay()
+{
+	AssignControlledPawn();
 }
 
 void AStealthGamePlayerController::PlayerTick(float DeltaTime)
@@ -132,22 +138,36 @@ void AStealthGamePlayerController::OnInteractPressed()
 				interactable->Interact(GetCharacter());
 				UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, FXCursorRed, Hit.Location, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
 			}
+
+			ATelescope* Telescope = Cast<ATelescope>(Hit.GetActor());
+			if (Telescope)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Telescope hit"));
+				Telescope->OnPlayerInteraction(this);
+			}
+
+
 		}
 	}
 }
 
 void AStealthGamePlayerController::MoveForward(float Value)
 {
-	APawn* const MyPawn = GetPawn();
-
-	MyPawn->AddMovementInput(FVector(Value, 0.f, 0.f));
+	CurrentlyControlledPawn->Execute_MoveForward(GetPawn(), Value);
 
 }
 
 void AStealthGamePlayerController::MoveRight(float Value)
 {
-	APawn* const MyPawn = GetPawn();
+	CurrentlyControlledPawn->Execute_MoveRight(GetPawn(), Value);
 
-	MyPawn->AddMovementInput(FVector(0.f, Value, 0.f));
+}
 
+void AStealthGamePlayerController::AssignControlledPawn()
+{
+	CurrentlyControlledPawn = Cast<IUserInputInterface>(GetPawn());
+	if (!CurrentlyControlledPawn)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Controller pawn assignment failed, Expect broken inputs"));
+	}
 }

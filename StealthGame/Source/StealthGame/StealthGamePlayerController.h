@@ -5,6 +5,9 @@
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
 #include "GameFramework/PlayerController.h"
+
+#include "UserInputInterface.h"
+
 #include "StealthGamePlayerController.generated.h"
 
 /** Forward declaration to improve compiling times */
@@ -34,6 +37,7 @@ protected:
 	uint32 bMoveToMouseCursor : 1;
 
 	// Begin PlayerController interface
+	virtual void BeginPlay() override;
 	virtual void PlayerTick(float DeltaTime) override;
 	virtual void SetupInputComponent() override;
 	// End PlayerController interface
@@ -50,6 +54,10 @@ protected:
 	/** Input handlers for Interact action. */
 	void OnInteractPressed();
 
+	/** User input interface handlers*/
+	UFUNCTION(BlueprintCallable)
+	void AssignControlledPawn();
+
 	/** Input handlers for WASD controls. */
 	void MoveForward(float Value);
 	void MoveRight(float Value);
@@ -59,6 +67,8 @@ private:
 	bool bInputPressed; // Input is bring pressed
 	bool bIsTouch; // Is it a touch device
 	float FollowTime; // For how long it has been pressed
+
+	IUserInputInterface* CurrentlyControlledPawn;
 };
 
 

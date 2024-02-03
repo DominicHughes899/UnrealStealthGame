@@ -4,10 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+
+#include "UserInputInterface.h"
+
 #include "StealthGameCharacter.generated.h"
 
 UCLASS(Blueprintable)
-class AStealthGameCharacter : public ACharacter
+class AStealthGameCharacter : public ACharacter, public IUserInputInterface
 {
 	GENERATED_BODY()
 
@@ -42,7 +45,7 @@ public:
 
 	AActor* HeldItem;
 
-
-
+	void MoveForward_Implementation(float Value) override;
+	void MoveRight_Implementation(float Value) override;
 };
 
